@@ -32,21 +32,21 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="receivePanel" alignment="0" max="32767" attributes="0"/>
-                  <Component id="sendPanel" alignment="0" max="32767" attributes="0"/>
-                  <Component id="serialPortPropPanel" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="txtTitle" min="-2" pref="189" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="receivePanel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="sendPanel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="serialPortPropPanel" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              <Component id="txtTitle" min="-2" pref="189" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="recvText" min="-2" pref="535" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -55,9 +55,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtTitle" min="-2" pref="42" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="recvText" min="-2" pref="532" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" pref="540" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="receivePanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="serialPortPropPanel" min="-2" max="-2" attributes="0"/>
@@ -108,15 +108,14 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="jCheckBox5" min="-2" max="-2" attributes="0"/>
+                                      <Component id="sendHexCheckBox" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jCheckBox6" min="-2" max="-2" attributes="0"/>
+                                      <Component id="sendPeriodEnableCheckBox" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jFormattedTextField1" min="-2" pref="37" max="-2" attributes="0"/>
+                                      <Component id="sendPeriodTimeText" min="-2" pref="37" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -140,15 +139,22 @@
                                       <Component id="jCheckBox7" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="45" max="32767" attributes="0"/>
+                              <EmptySpace min="72" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="sendButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="clearSendBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="sendText" pref="529" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -157,9 +163,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jCheckBox5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jCheckBox6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jFormattedTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="sendHexCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="sendPeriodEnableCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="sendPeriodTimeText" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jCheckBox8" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -174,35 +180,43 @@
                           <Component id="jComboBox3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jCheckBox7" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="80" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace pref="95" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="sendButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="clearSendBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
+                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace pref="71" max="32767" attributes="0"/>
+                          <Component id="sendText" min="-2" pref="76" max="-2" attributes="0"/>
+                          <EmptySpace pref="44" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JCheckBox" name="jCheckBox5">
+            <Component class="javax.swing.JCheckBox" name="sendHexCheckBox">
               <Properties>
                 <Property name="text" type="java.lang.String" value="HEX&#x53d1;&#x9001;"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="jCheckBox6">
+            <Component class="javax.swing.JCheckBox" name="sendPeriodEnableCheckBox">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#x5b9a;&#x65f6;&#x53d1;&#x9001;"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField1">
+            <Component class="javax.swing.JFormattedTextField" name="sendPeriodTimeText">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                   <Format format="#0" subtype="-1" type="0"/>
                 </Property>
               </Properties>
+              <BindingProperties>
+                <BindingProperty name="enabled" source="sendPeriodEnableCheckBox" sourcePath="${selected}" target="sendPeriodTimeText" targetPath="enabled" updateStrategy="0" immediately="false"/>
+              </BindingProperties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
@@ -282,21 +296,12 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="clearSendBtnMouseClicked"/>
               </Events>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-              <AuxValues>
-                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JTextArea" name="sendText">
-                  <Properties>
-                    <Property name="columns" type="int" value="20"/>
-                    <Property name="rows" type="int" value="5"/>
-                  </Properties>
-                </Component>
-              </SubComponents>
-            </Container>
+            <Component class="javax.swing.JTextArea" name="sendText">
+              <Properties>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="rows" type="int" value="5"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel2">
@@ -318,7 +323,7 @@
                           <Component id="jButton1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jTextField1" pref="413" max="32767" attributes="0"/>
+                      <Component id="sendFilePathText" pref="430" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -329,7 +334,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="sendFilePathText" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jButton2" min="-2" max="-2" attributes="0"/>
@@ -344,11 +349,11 @@
                 <Property name="text" type="java.lang.String" value="&#x9009;&#x62e9;&#x6587;&#x4ef6;"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField1">
+            <Component class="javax.swing.JTextField" name="sendFilePathText">
             </Component>
             <Component class="javax.swing.JButton" name="jButton2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x53d1;&#x9001;"/>
+                <Property name="text" type="java.lang.String" value="&#x53d1;&#x9001;&#x6587;&#x4ef6;"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -377,19 +382,22 @@
                           <Component id="jSeparator2" min="-2" pref="11" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="dtrCheckBox" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="rtxCheckBox" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jSeparator1" min="-2" pref="12" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="baudrateCombox" min="-2" pref="86" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="moreSerialPropBtn" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="openPortBtn" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="rtsCheckBox" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jSeparator1" min="-2" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="baudrateCombox" min="-2" pref="86" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="moreSerialPropBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -406,7 +414,7 @@
                           </Group>
                           <Component id="jSeparator1" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="rtxCheckBox" alignment="3" max="32767" attributes="0"/>
+                              <Component id="rtsCheckBox" alignment="3" max="32767" attributes="0"/>
                               <Component id="dtrCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
@@ -418,7 +426,10 @@
                       </Group>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="openPortBtn" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="openPortBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -443,6 +454,9 @@
               <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="portSelectComboxPropertyChange"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -457,7 +471,7 @@
             <Property name="orientation" type="int" value="1"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="rtxCheckBox">
+        <Component class="javax.swing.JCheckBox" name="rtsCheckBox">
           <Properties>
             <Property name="text" type="java.lang.String" value="RTS"/>
           </Properties>
@@ -487,6 +501,11 @@
             <Property name="text" type="java.lang.String" value="&#x66f4;&#x591a;&#x4e32;&#x53e3;&#x8bbe;&#x7f6e;"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel8">
+          <BindingProperties>
+            <BindingProperty name="text" source="portSelectCombox" sourcePath="${selectedItem}" target="jLabel8" targetPath="text" updateStrategy="0" immediately="false"/>
+          </BindingProperties>
         </Component>
       </SubComponents>
     </Container>
@@ -554,11 +573,20 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JTextArea" name="recvText">
-      <Properties>
-        <Property name="columns" type="int" value="20"/>
-        <Property name="rows" type="int" value="5"/>
-      </Properties>
-    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="recvText">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

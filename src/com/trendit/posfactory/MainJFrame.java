@@ -5,16 +5,28 @@
  */
 package com.trendit.posfactory;
 
+import static com.trendit.posfactory.Constants.*;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Enumeration;
 import gnu.io.CommPortIdentifier;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.HashSet;
+import javax.swing.AbstractButton;
+import javax.swing.JComboBox;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.event.DocumentListener;
+import java.awt.event.KeyAdapter;
+import javax.swing.text.JTextComponent;
 
 /**
  *
- * @author PVer
+ * @author yinlijun
  */
 public class MainJFrame extends javax.swing.JFrame 
         implements SerialConnection.SerialConnectionListener {
@@ -25,6 +37,50 @@ public class MainJFrame extends javax.swing.JFrame
     public MainJFrame() {
         initComponents();
         initPort();
+        initViewModel();
+    }
+    
+    private void bindSingleComponent(String prop, AbstractButton comp, ItemListener listener) {
+        SettingsViewModel.bindComponent(prop, comp);
+        comp.addItemListener(SettingsViewModel.mCommSerialBaudListener);
+    }
+    
+    private void bindSingleComponent(String prop, JComboBox comp, ItemListener listener) {
+        SettingsViewModel.bindComponent(prop, comp);
+        comp.addItemListener(SettingsViewModel.mCommSerialBaudListener);
+    }
+
+    private void bindSingleComponent(String prop, JTextField comp, ActionListener listener) {
+        SettingsViewModel.bindComponent(prop, comp);
+        //comp.getDocument().addDocumentListener(listener);
+        comp.addActionListener(listener);
+    }
+    
+    private void bindSingleComponent(String prop, JTextArea comp, KeyAdapter listener) {
+        SettingsViewModel.bindComponent(prop, comp);
+        //comp.getDocument().addDocumentListener(listener);
+        comp.addKeyListener(listener);
+    }
+    
+    
+    private void initViewModel() {
+        bindSingleComponent(COMM_SERIAL_BAUDRATE, baudrateCombox, SettingsViewModel.mCommSerialBaudListener);
+        
+        bindSingleComponent(COMM_SERIAL_PORT, portSelectCombox, SettingsViewModel.mCommSerialPortListener);
+        
+        bindSingleComponent(COMM_SERIAL_DTR_ENABLE, dtrCheckBox, SettingsViewModel.mCommSerialDtrListener);
+        
+        bindSingleComponent(COMM_SERIAL_RTS_ENABLE , rtsCheckBox, SettingsViewModel.mCommSerialDtrListener);
+        
+        bindSingleComponent(COMM_RECV_DISPAY_HEX, hexRecvBtn, SettingsViewModel.mCommRecvDisplayHexListener);
+        
+        bindSingleComponent(COMM_RECV_DISPAY_HEX, hexRecvBtn, SettingsViewModel.mCommRecvDisplayHexListener);
+
+        bindSingleComponent(COMM_SERIAL_PORT, portSelectCombox, SettingsViewModel.mCommSerialPortListener);
+        
+        bindSingleComponent(COMM_RECV_DATA, recvText, SettingsViewModel.mCommRecvDataListener);
+        
+        bindSingleComponent(COMM_SEND_DATA, sendText, SettingsViewModel.mCommSendDataListener);
     }
     
     private void initPort() {
@@ -43,7 +99,7 @@ public class MainJFrame extends javax.swing.JFrame
     public void onDataReceive(byte[] data) {
         String orig = recvText.getText();
         String str =new String(data);
-        recvText.setText(str + "\r\n" + orig);
+        recvText.setText(str + orig);
         recvText.setAutoscrolls(true);
     }
 
@@ -55,13 +111,14 @@ public class MainJFrame extends javax.swing.JFrame
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         txtTitle = new javax.swing.JLabel();
         sendPanel = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jCheckBox6 = new javax.swing.JCheckBox();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        sendHexCheckBox = new javax.swing.JCheckBox();
+        sendPeriodEnableCheckBox = new javax.swing.JCheckBox();
+        sendPeriodTimeText = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
         jCheckBox7 = new javax.swing.JCheckBox();
         jCheckBox8 = new javax.swing.JCheckBox();
@@ -74,11 +131,10 @@ public class MainJFrame extends javax.swing.JFrame
         jComboBox3 = new javax.swing.JComboBox<>();
         sendButton = new javax.swing.JButton();
         clearSendBtn = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
         sendText = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        sendFilePathText = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         serialPortPropPanel = new javax.swing.JPanel();
         openPortBtn = new javax.swing.JButton();
@@ -86,16 +142,18 @@ public class MainJFrame extends javax.swing.JFrame
         portSelectCombox = new javax.swing.JComboBox<>();
         dtrCheckBox = new javax.swing.JCheckBox();
         jSeparator1 = new javax.swing.JSeparator();
-        rtxCheckBox = new javax.swing.JCheckBox();
+        rtsCheckBox = new javax.swing.JCheckBox();
         jSeparator2 = new javax.swing.JSeparator();
         baudrateCombox = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         moreSerialPropBtn = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
         receivePanel = new javax.swing.JPanel();
         clearRecvButton = new javax.swing.JButton();
         saveRecvBtn = new javax.swing.JButton();
         hexRecvBtn = new javax.swing.JCheckBox();
         saveRecvToFileBtn = new javax.swing.JCheckBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
         recvText = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -111,11 +169,14 @@ public class MainJFrame extends javax.swing.JFrame
         txtTitle.setMaximumSize(new java.awt.Dimension(48, 30));
         txtTitle.setMinimumSize(new java.awt.Dimension(48, 30));
 
-        jCheckBox5.setText("HEX发送");
+        sendHexCheckBox.setText("HEX发送");
 
-        jCheckBox6.setText("定时发送");
+        sendPeriodEnableCheckBox.setText("定时发送");
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        sendPeriodTimeText.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, sendPeriodEnableCheckBox, org.jdesktop.beansbinding.ELProperty.create("${selected}"), sendPeriodTimeText, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
 
         jLabel3.setText("ms/次");
 
@@ -152,7 +213,6 @@ public class MainJFrame extends javax.swing.JFrame
 
         sendText.setColumns(20);
         sendText.setRows(5);
-        jScrollPane1.setViewportView(sendText);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -161,15 +221,14 @@ public class MainJFrame extends javax.swing.JFrame
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jCheckBox5)
+                                .addComponent(sendHexCheckBox)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox6)
+                                .addComponent(sendPeriodEnableCheckBox)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(sendPeriodTimeText, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -190,21 +249,26 @@ public class MainJFrame extends javax.swing.JFrame
                                 .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jCheckBox7)))
-                        .addGap(0, 45, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(sendButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(clearSendBtn)))
-                .addContainerGap())
+                        .addComponent(clearSendBtn)
+                        .addContainerGap())))
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(sendText, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox5)
-                    .addComponent(jCheckBox6)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sendHexCheckBox)
+                    .addComponent(sendPeriodEnableCheckBox)
+                    .addComponent(sendPeriodTimeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jCheckBox8)
                     .addComponent(jLabel4)
@@ -217,20 +281,23 @@ public class MainJFrame extends javax.swing.JFrame
                     .addComponent(jLabel7)
                     .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBox7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sendButton)
                     .addComponent(clearSendBtn))
                 .addContainerGap())
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addContainerGap(71, Short.MAX_VALUE)
+                    .addComponent(sendText, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(44, Short.MAX_VALUE)))
         );
 
         sendPanel.addTab("发送", jPanel3);
 
         jButton1.setText("选择文件");
 
-        jButton2.setText("发送");
+        jButton2.setText("发送文件");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -242,7 +309,7 @@ public class MainJFrame extends javax.swing.JFrame
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+                .addComponent(sendFilePathText, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -251,7 +318,7 @@ public class MainJFrame extends javax.swing.JFrame
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sendFilePathText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
                 .addContainerGap(125, Short.MAX_VALUE))
@@ -270,11 +337,17 @@ public class MainJFrame extends javax.swing.JFrame
 
         jLabel1.setText("端口号");
 
+        portSelectCombox.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                portSelectComboxPropertyChange(evt);
+            }
+        });
+
         dtrCheckBox.setText("DTR");
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        rtxCheckBox.setText("RTS");
+        rtsCheckBox.setText("RTS");
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -282,6 +355,9 @@ public class MainJFrame extends javax.swing.JFrame
 
         moreSerialPropBtn.setText("更多串口设置");
         moreSerialPropBtn.setToolTipText("");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, portSelectCombox, org.jdesktop.beansbinding.ELProperty.create("${selectedItem}"), jLabel8, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout serialPortPropPanelLayout = new javax.swing.GroupLayout(serialPortPropPanel);
         serialPortPropPanel.setLayout(serialPortPropPanelLayout);
@@ -296,18 +372,20 @@ public class MainJFrame extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dtrCheckBox)
-                        .addGap(2, 2, 2)
-                        .addComponent(rtxCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(baudrateCombox, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(moreSerialPropBtn))
+                        .addComponent(dtrCheckBox))
                     .addComponent(openPortBtn))
+                .addGap(2, 2, 2)
+                .addGroup(serialPortPropPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(rtsCheckBox)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(baudrateCombox, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(moreSerialPropBtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         serialPortPropPanelLayout.setVerticalGroup(
@@ -321,7 +399,7 @@ public class MainJFrame extends javax.swing.JFrame
                             .addComponent(portSelectCombox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jSeparator1)
                         .addGroup(serialPortPropPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rtxCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rtsCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(dtrCheckBox))
                         .addComponent(jSeparator2))
                     .addGroup(serialPortPropPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -329,7 +407,9 @@ public class MainJFrame extends javax.swing.JFrame
                         .addComponent(jLabel2)
                         .addComponent(moreSerialPropBtn)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(openPortBtn))
+                .addGroup(serialPortPropPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(openPortBtn)
+                    .addComponent(jLabel8)))
         );
 
         receivePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("接收设置"));
@@ -377,6 +457,7 @@ public class MainJFrame extends javax.swing.JFrame
 
         recvText.setColumns(20);
         recvText.setRows(5);
+        jScrollPane1.setViewportView(recvText);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -385,27 +466,26 @@ public class MainJFrame extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(receivePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(sendPanel)
-                    .addComponent(serialPortPropPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(168, 168, 168))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(recvText, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(168, 168, 168))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(receivePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(sendPanel, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(serialPortPropPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(recvText, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(receivePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(serialPortPropPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -413,6 +493,8 @@ public class MainJFrame extends javax.swing.JFrame
                 .addComponent(sendPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -452,6 +534,10 @@ public class MainJFrame extends javax.swing.JFrame
             }
         }
     }//GEN-LAST:event_sendButtonMouseClicked
+
+    private void portSelectComboxPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_portSelectComboxPropertyChange
+
+    }//GEN-LAST:event_portSelectComboxPropertyChange
 
     /**
      * @param args the command line arguments
@@ -521,12 +607,9 @@ public class MainJFrame extends javax.swing.JFrame
     private javax.swing.JCheckBox hexRecvBtn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
     private javax.swing.JCheckBox jCheckBox7;
     private javax.swing.JCheckBox jCheckBox8;
     private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JFormattedTextField jFormattedTextField3;
     private javax.swing.JLabel jLabel1;
@@ -536,24 +619,29 @@ public class MainJFrame extends javax.swing.JFrame
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton moreSerialPropBtn;
     private javax.swing.JButton openPortBtn;
     private javax.swing.JComboBox<String> portSelectCombox;
     private javax.swing.JPanel receivePanel;
     private javax.swing.JTextArea recvText;
-    private javax.swing.JCheckBox rtxCheckBox;
+    private javax.swing.JCheckBox rtsCheckBox;
     private javax.swing.JButton saveRecvBtn;
     private javax.swing.JCheckBox saveRecvToFileBtn;
     private javax.swing.JButton sendButton;
+    private javax.swing.JTextField sendFilePathText;
+    private javax.swing.JCheckBox sendHexCheckBox;
     private javax.swing.JTabbedPane sendPanel;
+    private javax.swing.JCheckBox sendPeriodEnableCheckBox;
+    private javax.swing.JFormattedTextField sendPeriodTimeText;
     private javax.swing.JTextArea sendText;
     private javax.swing.JPanel serialPortPropPanel;
     private javax.swing.JLabel txtTitle;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

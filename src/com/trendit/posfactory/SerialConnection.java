@@ -17,8 +17,8 @@ import gnu.io.RXTXPort;
 import gnu.io.UnsupportedCommOperationException;
 
 /**
- *
- * @author PVer
+ * @brief serial connection sender and receiver.
+ * @author yinlijun
  */
 public class SerialConnection {
     public interface SerialConnectionListener {
